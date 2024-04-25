@@ -5,12 +5,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- displays site properly based on user's device -->
-
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
 
   <title>Frontend Mentor | News homepage</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <script>
+    function toggleMenuBtn() {
+      nav_links_mobile = document.getElementById("nav-links-mobile");
+      nav_styles = window.getComputedStyle(nav_links_mobile);
+      if (nav_styles.getPropertyValue("right") === "0px") {
+        deactivateMenu()
+      } else {
+        activateMenu()
+      }
+    }
+
+    function activateMenu() {
+      document.getElementById("nav-links-mobile").style.right = "0";
+      document.getElementById("modal-shadow").style.display = "block";
+    }
+
+    function deactivateMenu() {
+      document.getElementById("nav-links-mobile").style.right = "-15rem";
+      document.getElementById("modal-shadow").style.display = "none";
+    }
+    // document.getElementById("nav-btn").addEventListener("click", toggleMenuBtn)
+    addEventListener("resize", (event) => {
+      if (window.innerWidth > 1000) {
+        deactivateMenu()
+      } else {
+        activateMenu()
+      }
+    });
+  </script>
   <style>
     @font-face {
       font-family: "Inter-VariableFont_slnt";
@@ -36,6 +63,20 @@
       font-family: "inter-Regular";
       background-color: hsl(36, 100%, 99%);
       padding: 6rem;
+      overflow-x: hidden;
+      margin: 0;
+      /* width: 100%; */
+      position: relative;
+    }
+
+    .modal-shadow {
+      position: absolute;
+      top: -1rem;
+      left: -1rem;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.2);
+      display: none;
     }
 
     .navbar {
@@ -46,18 +87,52 @@
     }
 
     .nav-links {
-      width: 35%;
+      width: 40%;
       display: flex;
       justify-content: space-between;
     }
 
-    .nav-links a {
+    a {
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .nav-links a:hover {
+    a:hover {
       color: hsl(35, 77%, 62%);
+    }
+
+    .nav-links-mobile {
+      display: none;
+      position: absolute;
+      width: 15rem;
+      right: -15rem;
+      height: 100dvh;
+      background-color: hsl(36, 100%, 99%);
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      top: -1rem;
+    }
+
+    .nav-btn {
+      display: none;
+    }
+
+    .nav-btn button {
+      background-color: transparent;
+      border: 0px solid black;
+    }
+
+    .nav-links-mobile button {
+      border: 0px solid black;
+      background-color: transparent;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .nav-links-mobile a {
+      margin: 1rem;
     }
 
     .grid {
@@ -117,7 +192,6 @@
       background-color: hsl(240, 100%, 5%);
     }
 
-
     .grid .card {
       background-color: hsl(240, 100%, 5%);
       color: hsl(36, 100%, 99%);
@@ -168,7 +242,7 @@
 
     .bottom-item img {
       object-fit: cover;
-      max-height: 12rem;
+      max-width: 12rem;
     }
 
     .bottom-item-right {
@@ -198,12 +272,65 @@
       border-bottom: 1px solid hsl(233, 8%, 79%);
       margin: 1rem 0;
     }
+
+    @media (width <=1000px) {
+      body {
+        padding: 0;
+      }
+
+      main {
+        margin: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-links-mobile {
+        display: flex;
+      }
+
+      .nav-btn {
+        display: block;
+      }
+
+      .grid {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .grid .bottom-section {
+        flex-direction: column;
+      }
+
+      .bottom-item {
+        justify-content: start;
+      }
+    }
   </style>
 </head>
 
 <body>
-
   <main>
+    <div id="modal-shadow" class="modal-shadow"></div>
+    <div id="nav-links-mobile" class="nav-links-mobile">
+      <button onclick="toggleMenuBtn()"><img src="./assets/images/icon-menu-close.svg"></button>
+      <a>
+        Home
+      </a>
+      <a>
+        New
+      </a>
+      <a>
+        Popular
+      </a>
+      <a>
+        Trending
+      </a>
+      <a>
+        Categories
+      </a>
+    </div>
     <div class="navbar">
       <img src="./assets/images/logo.svg" />
       <div class="nav-links">
@@ -222,6 +349,11 @@
         <a>
           Categories
         </a>
+      </div>
+      <div id="nav-btn" class="nav-btn">
+        <button onclick="toggleMenuBtn()">
+          <img src="./assets/images/icon-menu.svg" />
+        </button>
       </div>
     </div>
     <div class="grid">
