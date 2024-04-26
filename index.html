@@ -29,12 +29,10 @@
       document.getElementById("nav-links-mobile").style.right = "-15rem";
       document.getElementById("modal-shadow").style.display = "none";
     }
-    // document.getElementById("nav-btn").addEventListener("click", toggleMenuBtn)
+    var width = window.width
     addEventListener("resize", (event) => {
       if (window.innerWidth > 1000) {
-        deactivateMenu()
-      } else {
-        activateMenu()
+        deactivateMenu();
       }
     });
   </script>
@@ -65,14 +63,13 @@
       padding: 6rem;
       overflow-x: hidden;
       margin: 0;
-      /* width: 100%; */
       position: relative;
     }
 
     .modal-shadow {
-      position: absolute;
-      top: -1rem;
-      left: -1rem;
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.2);
@@ -103,7 +100,7 @@
 
     .nav-links-mobile {
       display: none;
-      position: absolute;
+      position: fixed;
       width: 15rem;
       right: -15rem;
       height: 100dvh;
@@ -111,7 +108,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: start;
-      top: -1rem;
+      top: 0;
     }
 
     .nav-btn {
@@ -312,7 +309,7 @@
 
 <body>
   <main>
-    <div id="modal-shadow" class="modal-shadow"></div>
+    <div id="modal-shadow" class="modal-shadow" onclick="toggleMenuBtn()"></div>
     <div id="nav-links-mobile" class="nav-links-mobile">
       <button onclick="toggleMenuBtn()"><img src="./assets/images/icon-menu-close.svg" alt="menu-close"></button>
       <a>
